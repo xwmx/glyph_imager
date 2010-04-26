@@ -9,7 +9,7 @@ module GlyphImager
         raise ArgumentError, "missing value for :#{k}"
       end
     end
-    font = GlyphQuery.new(options[:font_path])
+    font = FontRecord.new(options[:font_path])
     if font.has_glyph_for_unicode_char?(options[:code_point])
       imager = GlyphImager::Imager.new(options)
       imager.create_image
@@ -19,10 +19,18 @@ module GlyphImager
   
   
   
-  class GlyphQuery
+  class FontRecord
     
     def initialize(filename)
       @font = Font::TTF::File.new(filename)
+    end
+    
+    def font
+      @font
+    end
+    
+    def name
+      @font.get_table(:name)
     end
     
     def get_encoding_table4

@@ -4,7 +4,7 @@ class TestGlyphImager < Test::Unit::TestCase
   
   def setup
     @font_path = File.join(File.dirname(__FILE__), 'fonts', 'DejaVuSerif.ttf')
-    @font = GlyphImager::GlyphQuery.new(@font_path)
+    @font = GlyphImager::FontRecord.new(@font_path)
     @output_dir = "/tmp"
   end
   
