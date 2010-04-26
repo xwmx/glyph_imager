@@ -2,6 +2,23 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'vendor', 'ttf-ruby-0
 require 'ttf'
 
 module GlyphImager
+  
+  def self.image_character_for_font(options = {})
+    %w[code_point font_path output_dir].each do |k|
+      if options[k.to_sym].nil?
+        raise ArgumentError, "missing value for :#{k}"
+      end
+    end
+    font = GlyphQuery.new(options[:font_path])
+    if font.has_glyph_for_unicode_char?(options[:code_point])
+      imager = GlyphImager::Imager.new(options)
+      imager.create_image
+      return imager
+    end
+  end
+  
+  
+  
   class GlyphQuery
     
     def initialize(filename)
@@ -43,4 +60,5 @@ module GlyphImager
     end
     
   end
+  
 end

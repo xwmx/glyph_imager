@@ -26,14 +26,32 @@ class TestGlyphImager < Test::Unit::TestCase
     assert !@font.has_glyph_for_unicode_char?("11B14")
   end
   
-  should "convert create new image" do
+  should "create new image" do
     @imager = GlyphImager::Imager.new({ 
       :code_point => "0021",
       :font_path => @font_path,
-      :output_dir => "/tmp" })
+      :output_dir => "/tmp"
+    })
     @imager.create_image
     assert File.exists?("/tmp/0021.png")
   end
   
+  should "create new image for character supported by font" do
+    GlyphImager.image_character_for_font({
+      :code_point => "0021",
+      :font_path => @font_path,
+      :output_dir => "/tmp"
+    })
+    assert File.exists?("/tmp/0021.png")
+  end
+  
+  should "not create new image for character not supported by font" do
+    GlyphImager.image_character_for_font({
+      :code_point => "11B14",
+      :font_path => @font_path,
+      :output_dir => "/tmp"
+    })
+    assert !File.exists?("/tmp/11B14.png")
+  end
   
 end
