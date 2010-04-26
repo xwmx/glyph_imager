@@ -21,6 +21,35 @@ module GlyphImager
   
   class FontRecord
     
+    @@metadata_ids = %w[
+      copyright_notice
+      font_family_name
+      font_subfamily_name
+      unique_font_identifier
+      full_font_name
+      version_string
+      postscript_name
+      trademark
+      manufacturer_name
+      designer_name
+      description
+      vendor_url
+      designer_url
+      license_description
+      license_url
+      reserved
+      preferred_family
+      preferred_subfamily
+      compatible_full
+    ]
+    
+    
+    @@metadata_ids.each do |m|
+      define_method(m) do
+        name_table.name_records[@@metadata_ids.index(m)].to_s
+      end
+    end
+    
     def initialize(filename)
       @font = Font::TTF::File.new(filename)
     end
@@ -29,8 +58,8 @@ module GlyphImager
       @font
     end
     
-    def name
-      @font.get_table(:name)
+    def name_table
+      @name_table ||= @font.get_table(:name)
     end
     
     def get_encoding_table4

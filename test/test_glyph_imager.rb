@@ -18,6 +18,11 @@ class TestGlyphImager < Test::Unit::TestCase
     assert_not_nil @font
   end
   
+  should "return font metadata" do
+    assert_equal "DejaVu Serif", @font.full_font_name
+    assert_equal "Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved.\nDejaVu changes are in public domain\n", @font.copyright_notice
+  end
+  
   should "return true when glyph exists for character" do
     assert @font.has_glyph_for_unicode_char?("0021")
   end
