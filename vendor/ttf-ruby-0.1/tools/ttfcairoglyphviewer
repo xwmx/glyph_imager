@@ -1,0 +1,229 @@
+# ttfcairoglyphviewer
+# Copyright (C) 2006  Mathieu Blondel
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+
+$LOAD_PATH.unshift("../lib/")
+
+require 'gtk2'
+require 'cairo'
+require 'ttf'
+
+class Cairo::Context
+
+    def draw_square(x, y)
+        rectangle(x-10, y-10, 20, 20)
+        set_source_rgb(255.0, 0.0, 0.0)
+        fill_preserve
+        set_line_join(Cairo::LINE_JOIN_ROUND)
+        set_line_width(1)       
+        stroke
+    end
+
+    def draw_circle(x, y)
+        arc(x, y, 10, 0, 2 * Math::PI)
+        fill_preserve
+        set_line_join(Cairo::LINE_JOIN_ROUND)
+        set_line_width(1)       
+        stroke
+    end
+
+    def draw_blue_circle(x, y)
+        set_source_rgb(0.0, 0.0, 255.0)
+        draw_circle(x, y)
+    end
+
+    def draw_green_circle(x, y)
+        set_source_rgb(0.0, 255.0, 0)
+        draw_circle(x, y)
+    end
+
+    def draw_markers(glyph)
+        i = 0
+        points = glyph.points
+        start_new_contour = true
+        while i < points.length                  
+            if start_new_contour
+                # The -y is needed because the directions of the y-axis
+                # with SVG and TrueType are opposed.
+                draw_square(points[i].abs_x, -(points[i].abs_y))
+                first_point = points[i]
+            end
+        
+            if points[i].end_of_contour?
+                close_path
+                start_new_contour = true
+                i += 1
+            else
+                if points[i].on_curve? and points[i + 1].on_curve?             
+                    draw_square(points[i + 1].abs_x, -(points[i + 1].abs_y))
+                    
+                    i += 1
+                else
+                    if points[i + 1].end_of_contour?
+                        # Close the contour
+                        draw_blue_circle(points[i + 1].abs_x, 
+                                      -(points[i + 1].abs_y))
+                        i += 1           
+                    elsif points[i + 2].on_curve?
+                        draw_blue_circle(points[i + 1].abs_x,
+                                      -(points[i + 1].abs_y))
+                    
+                        draw_square(points[i + 2].abs_x,
+                                    -(points[i + 2].abs_y))
+                        i += 2
+                    else
+                        # This is an implied on-curve point
+                        impl_x = (points[i + 2].abs_x - points[i + 1].abs_x) / 2
+                        impl_x += points[i + 1].abs_x
+                        impl_y = (points[i + 2].abs_y - points[i + 1].abs_y) / 2
+                        impl_y += points[i + 1].abs_y
+        
+                        draw_blue_circle(points[i + 1].abs_x,
+                                         -(points[i + 1].abs_y))
+                        draw_green_circle(impl_x, -(impl_y))
+                        i += 1                
+                    end
+                end
+        
+                start_new_contour = false
+            end
+        
+        end
+    end
+
+    def max_y(glyph)
+        max_y = 0
+        glyph.points.each do |pnt|
+            max_y = pnt.abs_y if pnt.abs_y > max_y
+        end
+        max_y
+    end
+
+    def draw_simple_glyph(glyph)
+        set_source_rgba(1.0, 1.0, 1.0)
+        paint
+        points = glyph.points
+        
+        start_new_contour = true
+        i = 0
+
+        scale(0.25, 0.25)
+        translate(0, max_y(glyph) + 20)
+
+
+        # Obviously this could be optimized because almost the same
+        # while loop is used twice but I had troubles to draw markers
+        # and paths at the same time. FIXME!
+        while i < points.length                  
+            if start_new_contour
+                # The -y is needed because the directions of the y-axis
+                # with SVG and TrueType are opposed.
+                move_to(points[i].abs_x, -(points[i].abs_y))
+                first_point = points[i]
+            end
+        
+            if points[i].end_of_contour?
+                close_path
+                start_new_contour = true
+                i += 1
+            else
+                if points[i].on_curve? and points[i + 1].on_curve?             
+                    line_to(points[i + 1].abs_x, -(points[i + 1].abs_y))
+                    
+                    i += 1
+                else
+                    if points[i + 1].end_of_contour?
+                        # Close the contour
+                        quad_to(points[i + 1].abs_x, 
+                                      -(points[i + 1].abs_y),
+                                      first_point.abs_x,
+                                      -(first_point.abs_y))
+                        i += 1           
+                    elsif points[i + 2].on_curve?
+                        quad_to(points[i + 1].abs_x,
+                                      -(points[i + 1].abs_y),
+                                       points[i + 2].abs_x,
+                                       -(points[i + 2].abs_y))
+                        i += 2
+                    else
+                        # This is an implied on-curve point
+                        impl_x = (points[i + 2].abs_x - points[i + 1].abs_x) / 2
+                        impl_x += points[i + 1].abs_x
+                        impl_y = (points[i + 2].abs_y - points[i + 1].abs_y) / 2
+                        impl_y += points[i + 1].abs_y
+        
+                        quad_to(points[i + 1].abs_x,
+                                      -(points[i + 1].abs_y),
+                                      impl_x,
+                                      -(impl_y))
+                        i += 1                
+                    end
+                end
+        
+                start_new_contour = false
+            end
+        
+        end
+        
+        set_source_rgb(0.0, 0.0, 0.0)
+        #fill_preserve
+        set_line_join(Cairo::LINE_JOIN_MITER)
+        set_line_width(4)
+        
+        stroke
+
+        draw_markers(glyph)
+    end
+end
+
+font = Font::TTF::File.new(ARGV[0])
+
+enc_tbl = font.get_table(:cmap).encoding_tables.find do |t|
+    t.class == Font::TTF::Table::Cmap::EncodingTable4
+end
+
+if ARGV[1] == "-g"
+    offs = font.get_table(:loca).glyph_offsets[ARGV[2].to_i]
+    glyph = font.get_table(:glyf).get_glyph_at_offset(offs)
+elsif ARGV[1] == "-c"
+    char_code = ARGV[2].unpack("U")[0]
+    glyph = enc_tbl.get_glyph_for_unicode(char_code)
+else
+    exit!
+end
+
+if glyph.composite?
+   puts "Composite glyph not supported yet"
+   exit! 
+end
+
+Gtk.init
+w = Gtk::Window.new.add(vb = Gtk::VBox.new)
+vb.add(da = Gtk::DrawingArea.new)
+da.set_size_request(300, 300)
+
+da.signal_connect("expose-event") do |widget, event|
+    cr = widget.window.create_cairo_context
+    cr.draw_simple_glyph(glyph)
+end
+
+w.show_all
+
+w.signal_connect("delete-event") do
+    Gtk.main_quit
+end
+
+Gtk.main

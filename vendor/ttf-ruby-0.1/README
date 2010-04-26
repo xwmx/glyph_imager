@@ -1,0 +1,49 @@
+TTF/Ruby
+========
+
+    TTF/Ruby is a library to read and write TrueType fonts in Ruby.
+
+    Tables supported are :
+
+        - Cmap *
+        - Cvt *
+        - Fpgm *
+        - Gasp
+        - Glyf
+        - Head
+        - Hhea
+        - Hmtx
+        - Kern *
+        - OS/2
+        - Post *
+        - Prep *
+        - Vhea
+        - Vmtx
+
+    (Tables marked with an * are only partially supported)
+
+Requirements
+------------
+
+    Ruby >= 1.8.0:              http://www.ruby-lang.org
+
+Install 
+-------
+
+    # ruby setup.rb
+
+Documentation
+-------------
+
+    $ rdoc --main "Font::TTF::File"
+
+Tools
+-----
+
+See tools/README.
+
+License
+-------
+
+    TTF/Ruby is distributed under the terms of the GNU General Public
+    License. See the COPYING file for more information.

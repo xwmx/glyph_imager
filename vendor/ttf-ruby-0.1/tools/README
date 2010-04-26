@@ -1,0 +1,44 @@
+This directory
+==============
+
+This directory (tools/) contains tools based upon TTF/Ruby.
+
+Note: TTF/Ruby does not need to be installed if you run those tools from 
+this directory.
+
+ttfdump
+=======
+
+ttfdump is a command-line tool to extract informations about a font.
+
+$ ruby ttfdump file.ttf # Display a summary about the font
+$ ruby ttfdump file.ttf table # Display informations related to table table
+$ ruby ttfdump file.ttf all # Display all informations (very verbose!)
+
+ttfsubset
+=========
+
+ttfsubset is a tool which from a font and an input file generates a subset from
+this font containing only characters in the input file. Maybe useful to embed a
+lighter version of a font in a document or in an embedded system.
+
+$ ruby ttfsubset file.ttf < input_file.txt
+
+ttfcairoglyphviewer
+===================
+
+ttfcairoglyphviewer renders a selected glyph using Ruby/GTK, Rcairo and
+TTF/Ruby. It also displays markers for corner points, curve control points, and
+implicit points.
+
+$ ruby ttfcairoglyphviewer file.ttf -g glyph_id 
+$ ruby ttfcairoglyphviewer file.ttf -c a_character
+
+ttfglyph2svg
+============
+
+ttfglyph2svg prints to stdout a selected glyph in SVG format.
+
+$ ruby ttfglyph2svg file.ttf -g glyph_id 
+$ ruby ttfglyph2svg file.ttf -c a_character
+
