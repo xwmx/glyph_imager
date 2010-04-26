@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{glyph_imager}
-  s.version = "0.0.0"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["William Melody"]
@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "glyph_imager.gemspec",
      "lib/glyph_imager.rb",
      "test/fonts/DejaVuSerif.ttf",
      "test/helper.rb",
