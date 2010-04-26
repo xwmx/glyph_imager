@@ -19,4 +19,28 @@ module GlyphImager
     end
     
   end
+  
+  class Imager
+    
+    @@graphics_utf_path = File.join(File.dirname(__FILE__), '..', 'vendor', 'graphics_utf')
+    
+    def initialize(opts = {})
+      @options = { :pointsize => 80 }.merge(opts)
+      %w[code_point font_path output_dir].each do |k|
+        if @options[k.to_sym].nil?
+          raise ArgumentError, "missing value for :#{k}"
+        end
+      end
+    end
+    
+    def output_path
+      "#{@options[:output_dir]}/#{@options[:code_point]}.png"
+    end
+    
+    def create_image
+      %x[#{@@graphics_utf_path} -N #{@options[:code_point]} | convert -font #{@options[:font_path]} -pointsize #{@options[:pointsize]} label:@- #{output_path}]
+      return self
+    end
+    
+  end
 end
