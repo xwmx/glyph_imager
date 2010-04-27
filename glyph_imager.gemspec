@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{glyph_imager}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["William Melody"]
-  s.date = %q{2010-04-26}
+  s.date = %q{2010-04-27}
   s.description = %q{Generate images of glyphs for a specified character in a specified font}
   s.email = %q{hi@williammelody.com}
   s.extra_rdoc_files = [
@@ -38,6 +38,7 @@ Gem::Specification.new do |s|
      "vendor/ttf-ruby-0.1/lib/ttf/datatypes.rb",
      "vendor/ttf-ruby-0.1/lib/ttf/encodings.rb",
      "vendor/ttf-ruby-0.1/lib/ttf/exceptions.rb",
+     "vendor/ttf-ruby-0.1/lib/ttf/font_loader.rb",
      "vendor/ttf-ruby-0.1/lib/ttf/fontchunk.rb",
      "vendor/ttf-ruby-0.1/lib/ttf/table/cmap.rb",
      "vendor/ttf-ruby-0.1/lib/ttf/table/cvt.rb",
