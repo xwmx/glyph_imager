@@ -181,6 +181,10 @@ class Name < Font::TTF::FontChunk
             end
         end
     end
+    
+    def find_record_by_id(id)
+      @name_records.detect { |r| r.name_id == id }
+    end
 
     # Gets a new empty NameRecord which may then be added to the 
     # name_records array.

@@ -46,7 +46,7 @@ module GlyphImager
     
     @@metadata_ids.each do |m|
       define_method(m) do
-        name_table.name_records[@@metadata_ids.index(m)].to_s
+        name_table.find_record_by_id(@@metadata_ids.index(m)).to_s
       end
     end
     
