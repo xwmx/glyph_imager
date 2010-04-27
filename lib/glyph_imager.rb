@@ -51,7 +51,7 @@ module GlyphImager
     end
     
     def initialize(filename)
-      @font = Font::TTF::File.new(filename)
+      @font = Font::TTF::FontLoader.new(filename)
     end
     
     def font

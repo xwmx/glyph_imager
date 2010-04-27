@@ -97,7 +97,7 @@ module TTF
 #  nr.utf8_str = "blablabla"
 #  font.write(font.dump) 
 #
-class File < File
+class FontLoader < File
 
     TABLES = {:cmap => Font::TTF::Table::Cmap,
               :cvt => Font::TTF::Table::Cvt,

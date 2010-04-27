@@ -38,7 +38,6 @@ Gem::Specification.new do |s|
      "vendor/ttf-ruby-0.1/lib/ttf/datatypes.rb",
      "vendor/ttf-ruby-0.1/lib/ttf/encodings.rb",
      "vendor/ttf-ruby-0.1/lib/ttf/exceptions.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/file.rb",
      "vendor/ttf-ruby-0.1/lib/ttf/fontchunk.rb",
      "vendor/ttf-ruby-0.1/lib/ttf/table/cmap.rb",
      "vendor/ttf-ruby-0.1/lib/ttf/table/cvt.rb",
