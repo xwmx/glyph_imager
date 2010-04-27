@@ -83,11 +83,11 @@ end
 
 def initialize(filename, input_chars)
 
-@font = Font::TTF::File.new(filename)
-@subset = Font::TTF::File.new
+@font = TTFFont::TTF::File.new(filename)
+@subset = TTFFont::TTF::File.new
 
 @enc_tbl = @font.get_table(:cmap).encoding_tables.find do |t|
-    t.class == Font::TTF::Table::Cmap::EncodingTable4
+    t.class == TTFFont::TTF::Table::Cmap::EncodingTable4
 end
 
 raise UnsupportedFont, "Needs an encoding table 4 (unicode)" \
@@ -135,9 +135,9 @@ end
 subset_cmap_tbl = @subset.get_new_table(:cmap)
 subset_enc_tbl = subset_cmap_tbl.get_new_encoding_table4
 subset_enc_tbl.platform_id = \
-    Font::TTF::Encodings::Platform::UNICODE
+    TTFFont::TTF::Encodings::Platform::UNICODE
 subset_enc_tbl.encoding_id = \
-    Font::TTF::Encodings::UnicodeEncoding::UNICODE
+    TTFFont::TTF::Encodings::UnicodeEncoding::UNICODE
 
 subset_enc_tbl.charmaps = @charmaps
 subset_cmap_tbl.encoding_tables << subset_enc_tbl
@@ -159,9 +159,9 @@ subset_cmap_tbl.encoding_tables << subset_enc_tbl0
 
 subset_enc_tbl = subset_cmap_tbl.get_new_encoding_table4
 subset_enc_tbl.platform_id = \
-    Font::TTF::Encodings::Platform::MICROSOFT
+    TTFFont::TTF::Encodings::Platform::MICROSOFT
 subset_enc_tbl.encoding_id = \
-    Font::TTF::Encodings::MicrosoftEncoding::UNICODE
+    TTFFont::TTF::Encodings::MicrosoftEncoding::UNICODE
 subset_enc_tbl.charmaps = @charmaps
 subset_cmap_tbl.encoding_tables << subset_enc_tbl
 
@@ -199,10 +199,10 @@ subset_hmtx_tbl.hmetrics = @hmetrics
 # Name
 name_tbl = @font.get_table(:name)
 name_tbl.name_records.find_all do |nr|
-    [Font::TTF::Table::Name::NameRecord::UNIQUE_FONT_IDENTIFIER,
-     Font::TTF::Table::Name::NameRecord::FONT_FAMILY_NAME,
-     Font::TTF::Table::Name::NameRecord::FULL_FONT_NAME,
-     Font::TTF::Table::Name::NameRecord::POSTSCRIPT_NAME].include? \
+    [TTFFont::TTF::Table::Name::NameRecord::UNIQUE_FONT_IDENTIFIER,
+     TTFFont::TTF::Table::Name::NameRecord::FONT_FAMILY_NAME,
+     TTFFont::TTF::Table::Name::NameRecord::FULL_FONT_NAME,
+     TTFFont::TTF::Table::Name::NameRecord::POSTSCRIPT_NAME].include? \
     nr.name_id and (nr.unicode? or nr.roman?)
 end.each do |nr|
     nr.utf8_str += "_subset"
@@ -266,8 +266,8 @@ ARGV.each_with_index do |filename, i|
         File.new(subset_path,
             File::CREAT|File::RDWR).write(Subsetter.new(filename,
                                                         input_chars).dump)
-    rescue UnsupportedFont, Font::TTF::MalformedFont, 
-           Font::TTF::TableMissing => e
+    rescue UnsupportedFont, TTFFont::TTF::MalformedFont, 
+           TTFFont::TTF::TableMissing => e
         puts e
     end
 end

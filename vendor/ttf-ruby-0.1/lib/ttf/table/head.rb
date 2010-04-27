@@ -15,12 +15,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-module Font
+module TTFFont
 module TTF
 module Table
 
 # Head is the font header table, which gives global informations about the font.
-class Head < Font::TTF::FontChunk
+class Head < TTFFont::TTF::FontChunk
 
     LONG_FORMAT = 1
     SHORT_FORMAT = 0

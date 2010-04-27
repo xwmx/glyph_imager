@@ -15,13 +15,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-module Font
+module TTFFont
 module TTF
 module Table
 
 # Cvt is the Control Value table. It references values that can be
 # referenced by instructions (used for hinting, aka grid-fitting).
-class Cvt < Font::TTF::FontChunk
+class Cvt < TTFFont::TTF::FontChunk
 
     attr_accessor :instructions
 

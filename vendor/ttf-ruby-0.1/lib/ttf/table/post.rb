@@ -15,13 +15,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-module Font
+module TTFFont
 module TTF
 module Table
 
 # Post is the PostScript table, which contains additional informations needed
 # to use TrueType fonts on PostScript printers
-class Post < Font::TTF::FontChunk
+class Post < TTFFont::TTF::FontChunk
 
     attr_accessor :format_type, :italic_angle, :underline_position, 
                   :underline_thickness, :is_fixed_pitch,  

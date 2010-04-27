@@ -189,10 +189,10 @@ class Cairo::Context
     end
 end
 
-font = Font::TTF::File.new(ARGV[0])
+font = TTFFont::TTF::File.new(ARGV[0])
 
 enc_tbl = font.get_table(:cmap).encoding_tables.find do |t|
-    t.class == Font::TTF::Table::Cmap::EncodingTable4
+    t.class == TTFFont::TTF::Table::Cmap::EncodingTable4
 end
 
 if ARGV[1] == "-g"

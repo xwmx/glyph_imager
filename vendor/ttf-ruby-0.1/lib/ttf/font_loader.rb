@@ -38,7 +38,7 @@ require 'ttf/table/prep'
 require 'ttf/table/vhea'
 require 'ttf/table/vmtx'
 
-module Font
+module TTFFont
 module TTF
 # TTF/Ruby is a library to read and write TrueType fonts in Ruby.
 #
@@ -46,12 +46,12 @@ module TTF
 # Copyright:: Copyright (c) 2006 Mathieu Blondel
 # License:: GPL
 #
-# This Font::TTF::File class is TTF/Ruby's main class and is a subclass
+# This TTFFont::TTF::File class is TTF/Ruby's main class and is a subclass
 # of Ruby's File class. Here is some sample code:
 #
 #  require 'ttf'
 #
-#  font = Font::TTF::File.new("copy.ttf")
+#  font = TTFFont::TTF::File.new("copy.ttf")
 #
 #  cmap_tbl = font.get_table(:cmap)
 #  enc_tbl4 = cmap_tbl.encoding_tables.find { |t| t.format == 4 }
@@ -69,29 +69,29 @@ module TTF
 #
 # Here are the tables and their associated Symbol:
 #
-# * :cmap => Font::TTF::Table::Cmap
-# * :cvt => Font::TTF::Table::Cvt
-# * :fpgm => Font::TTF::Table::Fpgm
-# * :gasp => Font::TTF::Table::Gasp
-# * :glyf => Font::TTF::Table::Glyf
-# * :head => Font::TTF::Table::Head
-# * :hhea => Font::TTF::Table::Hhea
-# * :hmtx => Font::TTF::Table::Hmtx
-# * :kern => Font::TTF::Table::Kern
-# * :loca => Font::TTF::Table::Loca
-# * :maxp => Font::TTF::Table::Maxp
-# * :name => Font::TTF::Table::Name
-# * :"OS/2" => Font::TTF::Table::OS2
-# * :post => Font::TTF::Table::Post
-# * :prep => Font::TTF::Table::Prep
-# * :vhea => Font::TTF::Table::Vhea
-# * :vmtx => Font::TTF::Table::Vmtx
+# * :cmap => TTFFont::TTF::Table::Cmap
+# * :cvt => TTFFont::TTF::Table::Cvt
+# * :fpgm => TTFFont::TTF::Table::Fpgm
+# * :gasp => TTFFont::TTF::Table::Gasp
+# * :glyf => TTFFont::TTF::Table::Glyf
+# * :head => TTFFont::TTF::Table::Head
+# * :hhea => TTFFont::TTF::Table::Hhea
+# * :hmtx => TTFFont::TTF::Table::Hmtx
+# * :kern => TTFFont::TTF::Table::Kern
+# * :loca => TTFFont::TTF::Table::Loca
+# * :maxp => TTFFont::TTF::Table::Maxp
+# * :name => TTFFont::TTF::Table::Name
+# * :"OS/2" => TTFFont::TTF::Table::OS2
+# * :post => TTFFont::TTF::Table::Post
+# * :prep => TTFFont::TTF::Table::Prep
+# * :vhea => TTFFont::TTF::Table::Vhea
+# * :vmtx => TTFFont::TTF::Table::Vmtx
 # 
 # Of course, you may modify attributes and generate a new font file.
 #
 #  require "ttf"
 # 
-#  font = Font::TTF::File.new("file.ttf", "w")
+#  font = TTFFont::TTF::File.new("file.ttf", "w")
 #  name_tbl = font.get_table(:name)
 #  nr = name_tbl.name_records[0]
 #  nr.utf8_str = "blablabla"
@@ -99,23 +99,23 @@ module TTF
 #
 class FontLoader < File
 
-    TABLES = {:cmap => Font::TTF::Table::Cmap,
-              :cvt => Font::TTF::Table::Cvt,
-              :fpgm => Font::TTF::Table::Fpgm,
-              :gasp => Font::TTF::Table::Gasp,
-              :glyf => Font::TTF::Table::Glyf,
-              :head => Font::TTF::Table::Head,
-              :hhea => Font::TTF::Table::Hhea,
-              :hmtx => Font::TTF::Table::Hmtx,
-              :kern => Font::TTF::Table::Kern,
-              :loca => Font::TTF::Table::Loca,
-              :maxp => Font::TTF::Table::Maxp,
-              :name => Font::TTF::Table::Name,
-              :"OS/2" => Font::TTF::Table::OS2,
-              :post => Font::TTF::Table::Post,
-              :prep => Font::TTF::Table::Prep,
-              :vhea => Font::TTF::Table::Vhea,
-              :vmtx => Font::TTF::Table::Vmtx}
+    TABLES = {:cmap => TTFFont::TTF::Table::Cmap,
+              :cvt => TTFFont::TTF::Table::Cvt,
+              :fpgm => TTFFont::TTF::Table::Fpgm,
+              :gasp => TTFFont::TTF::Table::Gasp,
+              :glyf => TTFFont::TTF::Table::Glyf,
+              :head => TTFFont::TTF::Table::Head,
+              :hhea => TTFFont::TTF::Table::Hhea,
+              :hmtx => TTFFont::TTF::Table::Hmtx,
+              :kern => TTFFont::TTF::Table::Kern,
+              :loca => TTFFont::TTF::Table::Loca,
+              :maxp => TTFFont::TTF::Table::Maxp,
+              :name => TTFFont::TTF::Table::Name,
+              :"OS/2" => TTFFont::TTF::Table::OS2,
+              :post => TTFFont::TTF::Table::Post,
+              :prep => TTFFont::TTF::Table::Prep,
+              :vhea => TTFFont::TTF::Table::Vhea,
+              :vmtx => TTFFont::TTF::Table::Vmtx}
 
     DIR_ENTRY_SIZE = 4 * IO::SIZEOF_ULONG
 
@@ -124,7 +124,7 @@ class FontLoader < File
 
     attr_writer :version, :search_range, :entry_selector, :range_shift
 
-    # Font::TTF::File being a subclass of Ruby's File class, you may 
+    # TTFFont::TTF::File being a subclass of Ruby's File class, you may 
     # create new objects with the same parameters as Ruby's File class. 
     #
     # But you may also create new objects without parameters in case you want
@@ -167,7 +167,7 @@ class FontLoader < File
     end
 
     # Returns table associated with tag tbl_tag. It may return one of
-    # Font::TTF::Table::* object or a Font::TTF::FontChunk object if the
+    # TTFFont::TTF::Table::* object or a TTFFont::TTF::FontChunk object if the
     # table is not implemented yet by ttf-ruby.
     #
     # The table returned is kept internally so that every future call to
@@ -185,7 +185,7 @@ class FontLoader < File
             @tables[tbl_tag] = \
                 TABLES[tbl_tag].new(self, tbli[:offset], tbli[:len])
         else
-            Font::TTF::FontChunk.new(self, tbli[:offset], tbli[:len])
+            TTFFont::TTF::FontChunk.new(self, tbli[:offset], tbli[:len])
         end
     end
 
@@ -200,7 +200,7 @@ class FontLoader < File
         if TABLES.include? tbl_tag
             TABLES[tbl_tag].new(self)
         else
-            Font::TTF::FontChunk.new(self)
+            TTFFont::TTF::FontChunk.new(self)
         end
     end
 
@@ -222,7 +222,7 @@ class FontLoader < File
     private :table_list_update!
 
     # Adds tbl to font. tbl is a table object 
-    # (e.g. an instance of Font::TTF::Table::Loca).
+    # (e.g. an instance of TTFFont::TTF::Table::Loca).
     def set_table(tbl)
         tbl_tag = tbl.tag
 
@@ -234,7 +234,7 @@ class FontLoader < File
     end
     
     # Removes tbl from font. tbl may be a Symbol (e.g. :loca for the loca table)
-    # or a table object (e.g. an instance of Font::TTF::Table::Loca).
+    # or a table object (e.g. an instance of TTFFont::TTF::Table::Loca).
     def unset_table(tbl)
         if tbl.kind_of? Symbol
             tbl_tag = tbl

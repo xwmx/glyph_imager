@@ -15,12 +15,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-module Font
+module TTFFont
 module TTF
 module Table
 
 # OS2 is the OS/2 and Windows font metrics table.
-class OS2 < Font::TTF::FontChunk
+class OS2 < TTFFont::TTF::FontChunk
 
     INSTALLABLE_EMBEDDING = 0x0000
     RESTRICTED_LICENCE_EMBEDDING = 0x0002

@@ -15,16 +15,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-module Font
+module TTFFont
 module TTF
 module Table
 
 # Cmap is the character to glyph index mapping table.
-class Cmap < Font::TTF::FontChunk
+class Cmap < TTFFont::TTF::FontChunk
 
     # Base class for encoding table classes. It provides attributes which are
     # common to those classes such as platform_id and encoding_id.
-    class EncodingTable < Font::TTF::FontChunk
+    class EncodingTable < TTFFont::TTF::FontChunk
 
         attr_accessor :table, :platform_id, :encoding_id, :offset_from_table  
         
@@ -44,9 +44,9 @@ class Cmap < Font::TTF::FontChunk
         end
 
         def unicode?
-            @platform_id == Font::TTF::Encodings::Platform::UNICODE or \
-            (@platform_id == Font::TTF::Encodings::Platform::MICROSOFT and \
-            @encoding_id == Font::TTF::Encodings::MicrosoftEncoding::UNICODE)
+            @platform_id == TTFFont::TTF::Encodings::Platform::UNICODE or \
+            (@platform_id == TTFFont::TTF::Encodings::Platform::MICROSOFT and \
+            @encoding_id == TTFFont::TTF::Encodings::MicrosoftEncoding::UNICODE)
         end
 
         # Returns the format (a Fixnum) of the encoding table.
@@ -265,8 +265,8 @@ class Cmap < Font::TTF::FontChunk
             id
         end
 
-        # Returns the Font::TTF::Table::Glyf::SimpleGlyph or 
-        # Font::TTF::Table::Glyf::CompositeGlyph associated with unicode.
+        # Returns the TTFFont::TTF::Table::Glyf::SimpleGlyph or 
+        # TTFFont::TTF::Table::Glyf::CompositeGlyph associated with unicode.
         def get_glyph_for_unicode(unicode)
             id = get_glyph_id_for_unicode(unicode)
             offs = @font.get_table(:loca).glyph_offsets[id]

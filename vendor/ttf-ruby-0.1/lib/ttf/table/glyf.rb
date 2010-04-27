@@ -15,15 +15,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-module Font
+module TTFFont
 module TTF
 module Table
 
 # Glyf is the Glyph data table.
-class Glyf < Font::TTF::FontChunk
+class Glyf < TTFFont::TTF::FontChunk
 
     # Base class for SimpleGlyph and CompositeGlyph.
-    class Glyph < Font::TTF::FontChunk
+    class Glyph < TTFFont::TTF::FontChunk
 
         attr_accessor :num_contours, :x_min, :y_min, :x_max, :y_max
 
@@ -384,7 +384,7 @@ class Glyf < Font::TTF::FontChunk
 
     # Returns all Glyph (SimpleGlyph or CompositeGlyph) in an Array.
     # This method may be real overkill if you just need to access a few glyphs.
-    # In this case, you should use the loca table (Font::TTF::Table::Loca)
+    # In this case, you should use the loca table (TTFFont::TTF::Table::Loca)
     # to get offsets and get_glyph_at_offset to get glyph associated with them.
     def glyphs
         @glyphs ||= get_glyphs
@@ -434,10 +434,10 @@ class Glyf < Font::TTF::FontChunk
         # Using shorts saves two bytes per glyph!
         if offs < 131072
             @font.get_table(:head).index_to_loc_format = \
-                Font::TTF::Table::Head::SHORT_FORMAT
+                TTFFont::TTF::Table::Head::SHORT_FORMAT
         else
             @font.get_table(:head).index_to_loc_format = \
-                Font::TTF::Table::Head::LONG_FORMAT
+                TTFFont::TTF::Table::Head::LONG_FORMAT
         end
 
         @font.get_table(:loca).glyph_offsets = glyph_offsets

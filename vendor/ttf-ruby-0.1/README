@@ -35,7 +35,7 @@ Install
 Documentation
 -------------
 
-    $ rdoc --main "Font::TTF::File"
+    $ rdoc --main "TTFFont::TTF::File"
 
 Tools
 -----

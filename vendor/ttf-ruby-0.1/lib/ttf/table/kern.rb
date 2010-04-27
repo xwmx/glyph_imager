@@ -15,15 +15,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-module Font
+module TTFFont
 module TTF
 module Table
 
 # Kern is the Kerning table, which contains values for intercharacter spacing.
-class Kern < Font::TTF::FontChunk
+class Kern < TTFFont::TTF::FontChunk
 
     # KerningSubtable is a base class for KerningSubtable0 and KerningSubtable2.
-    class KerningSubtable < Font::TTF::FontChunk
+    class KerningSubtable < TTFFont::TTF::FontChunk
 
         HORIZONTAL = 0b1
         MINIMUM = 0b10

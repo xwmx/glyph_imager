@@ -15,13 +15,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-module Font
+module TTFFont
 module TTF
 module Table
 
 # Fpgm is the Font Program table. It is similar to the Cvt table except
 # it is only run once, when the font is first used.
-class Fpgm < Font::TTF::FontChunk
+class Fpgm < TTFFont::TTF::FontChunk
 
     attr_accessor :instructions
 

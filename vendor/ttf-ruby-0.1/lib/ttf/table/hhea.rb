@@ -15,12 +15,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-module Font
+module TTFFont
 module TTF
 module Table
 
 # Hea is a base class for Hhea and Vhea.
-class Hea < Font::TTF::FontChunk
+class Hea < TTFFont::TTF::FontChunk
 
     attr_accessor :version, :ascender, :descender, :line_gap, 
                   :advance_max, :min_side_bearing_1, 

@@ -56,7 +56,7 @@ if ARGV.length == 0 or ["h", "-h", "help", "--help"].include? ARGV[0]
     usage
     exit!
 else 
-    ttf = Font::TTF::File.new(ARGV[0])
+    ttf = TTFFont::TTF::File.new(ARGV[0])
 end
 
 if ARGV.length == 1 or (ARGV.length == 2 and ARGV[1] == "all")
@@ -70,17 +70,17 @@ if ARGV.length == 1 or (ARGV.length == 2 and ARGV[1] == "all")
         name = ttf.get_table(:name)
 
         fontname = name.name_records.find do |nr|
-        [Font::TTF::Table::Name::NameRecord::UNIQUE_FONT_IDENTIFIER,
-        Font::TTF::Table::Name::NameRecord::FONT_FAMILY_NAME,
-        Font::TTF::Table::Name::NameRecord::FULL_FONT_NAME,
-        Font::TTF::Table::Name::NameRecord::POSTSCRIPT_NAME].include? \
+        [TTFFont::TTF::Table::Name::NameRecord::UNIQUE_FONT_IDENTIFIER,
+        TTFFont::TTF::Table::Name::NameRecord::FONT_FAMILY_NAME,
+        TTFFont::TTF::Table::Name::NameRecord::FULL_FONT_NAME,
+        TTFFont::TTF::Table::Name::NameRecord::POSTSCRIPT_NAME].include? \
             nr.name_id and (nr.unicode? or nr.roman?)
         end
 
         define("Font Name", fontname.utf8_str) unless fontname.nil?
 
         fontcopyright = name.name_records.find do |nr|
-            nr.name_id == Font::TTF::Table::Name::NameRecord::COPYRIGHT_NOTICE \
+            nr.name_id == TTFFont::TTF::Table::Name::NameRecord::COPYRIGHT_NOTICE \
             and (nr.unicode? or nr.roman?)
         end        
 
@@ -215,7 +215,7 @@ if ARGV.length == 4 and ARGV[1] == "glyf" and
     glyf = ttf.get_table(:glyf)
 
     enc_tbl = ttf.get_table(:cmap).encoding_tables.find do |t|
-        t.class == Font::TTF::Table::Cmap::EncodingTable4
+        t.class == TTFFont::TTF::Table::Cmap::EncodingTable4
     end
 
     if ARGV[2] == "-g"
@@ -322,21 +322,21 @@ if ARGV.length == 2 and (ARGV[1] == "name" or ARGV[1] == "all") and
     name.name_records.each_with_index do |nr, i|
         define("Name record number", i)    
         define("Platform id", "%d (%s)" % [nr.platform_id,
-        Font::TTF::Encodings::Platform::ID2NAME[nr.platform_id]])
+        TTFFont::TTF::Encodings::Platform::ID2NAME[nr.platform_id]])
    
         if nr.platform_id == \
-            Font::TTF::Encodings::Platform::MICROSOFT
+            TTFFont::TTF::Encodings::Platform::MICROSOFT
             define("Encoding id", "%d (%s)" % [nr.encoding_id,          
-Font::TTF::Encodings::MicrosoftEncoding::ID2NAME[nr.encoding_id]])
+TTFFont::TTF::Encodings::MicrosoftEncoding::ID2NAME[nr.encoding_id]])
         elsif nr.platform_id == \
-            Font::TTF::Encodings::Platform::MACINTOSH
+            TTFFont::TTF::Encodings::Platform::MACINTOSH
             define("Encoding id", "%d (%s)" % [nr.encoding_id,          
-Font::TTF::Encodings::MacintoshEncoding::ID2NAME[nr.encoding_id]])
+TTFFont::TTF::Encodings::MacintoshEncoding::ID2NAME[nr.encoding_id]])
         end
 
         define("Language id", nr.language_id)    
         define("Name id",  "%d (%s)" % [nr.name_id,
-        Font::TTF::Table::Name::NameRecord::ID2NAME[nr.name_id]])    
+        TTFFont::TTF::Table::Name::NameRecord::ID2NAME[nr.name_id]])    
         define("String length", nr.to_s.length)    
         define("String offset", nr.str_offset)    
         define("String value", nr.utf8_str)

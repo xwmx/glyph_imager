@@ -17,17 +17,17 @@
 
 require 'iconv'
 
-module Font
+module TTFFont
 module TTF
 module Table
 
 # Name is the the Naming table which allows multilingual strings to be
 # associated with the TrueType font file.
-class Name < Font::TTF::FontChunk
+class Name < TTFFont::TTF::FontChunk
 
     # A NameRecord holds a string for a given Platform and Encoding.
-    class NameRecord < Font::TTF::FontChunk
-        include Font::TTF::Encodings
+    class NameRecord < TTFFont::TTF::FontChunk
+        include TTFFont::TTF::Encodings
 
         COPYRIGHT_NOTICE = 0
         FONT_FAMILY_NAME = 1

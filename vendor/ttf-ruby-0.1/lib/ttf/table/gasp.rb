@@ -15,14 +15,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-module Font
+module TTFFont
 module TTF
 module Table
 
 # Gasp is the Grid-fitting and scan conversion procedure table.
-class Gasp < Font::TTF::FontChunk
+class Gasp < TTFFont::TTF::FontChunk
 
-    class GaspRange < Font::TTF::FontChunk
+    class GaspRange < TTFFont::TTF::FontChunk
 
         SIZEOF_GASP_RANGE = 2 * IO::SIZEOF_USHORT
 

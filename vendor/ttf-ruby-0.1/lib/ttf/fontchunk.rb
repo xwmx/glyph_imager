@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-module Font
+module TTFFont
 module TTF
 
 # A FontChunk is a portion of font. It starts at an offset and has a given
@@ -36,7 +36,7 @@ class FontChunk
 
     # Returns the end of the class name as a Symbol.
     # Will be useful for tables, which are subclasses of FontChunk.
-    # For example, calling tag on Font::TTF:Table::Loca object will return
+    # For example, calling tag on TTFFont::TTF:Table::Loca object will return
     # :loca.
     def tag
         t = self.class.name.split("::").last.downcase.to_sym

@@ -51,7 +51,7 @@ module GlyphImager
     end
     
     def initialize(filename)
-      @font = Font::TTF::FontLoader.new(filename)
+      @font = TTFFont::TTF::FontLoader.new(filename)
     end
     
     def font
@@ -64,7 +64,7 @@ module GlyphImager
     
     def get_encoding_table4
       @enc_tbl ||= @font.get_table(:cmap).encoding_tables.find do |t|
-          t.class == Font::TTF::Table::Cmap::EncodingTable4
+          t.class == TTFFont::TTF::Table::Cmap::EncodingTable4
       end
     end
     

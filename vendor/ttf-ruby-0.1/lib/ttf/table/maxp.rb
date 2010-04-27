@@ -15,13 +15,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
-module Font
+module TTFFont
 module TTF
 module Table
 
 # Maxp is the Maximum profile tables, which establishes memory requirements
 # for the associated font.
-class Maxp < Font::TTF::FontChunk
+class Maxp < TTFFont::TTF::FontChunk
 
     attr_accessor :version, :num_glyphs, :max_points, :max_contours, 
                   :max_composite_points, :max_composite_contours, 
