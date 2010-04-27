@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{glyph_imager}
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["William Melody"]
@@ -64,7 +64,7 @@ Gem::Specification.new do |s|
      "vendor/ttf-ruby-0.1/tools/ttfglyph2svg",
      "vendor/ttf-ruby-0.1/tools/ttfsubset"
   ]
-  s.homepage = %q{http://github.com/autodata/glyph_imager}
+  s.homepage = %q{http://github.com/alphabetum/glyph_imager}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}

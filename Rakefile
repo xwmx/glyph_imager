@@ -8,7 +8,7 @@ begin
     gem.summary = %Q{Generate images of glyphs for a specified character in a specified font}
     gem.description = %Q{Generate images of glyphs for a specified character in a specified font}
     gem.email = "hi@williammelody.com"
-    gem.homepage = "http://github.com/autodata/glyph_imager"
+    gem.homepage = "http://github.com/alphabetum/glyph_imager"
     gem.authors = ["William Melody"]
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
