@@ -88,7 +88,7 @@ module GlyphImager
     end
     
     def output_path
-      "#{@options[:output_dir]}/#{@options[:code_point]}.png"
+      "#{@options[:output_dir]}/#{@options[:code_point]}-#{@options[:size]}.png"
     end
     
         

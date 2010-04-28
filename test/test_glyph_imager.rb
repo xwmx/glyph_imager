@@ -9,8 +9,8 @@ class TestGlyphImager < Test::Unit::TestCase
   end
   
   def teardown
-    if File.exists?("/tmp/0021.png")
-      File.delete("/tmp/0021.png")
+    if File.exists?("/tmp/0021-80x80.png")
+      File.delete("/tmp/0021-80x80.png")
     end
   end
   
@@ -39,7 +39,7 @@ class TestGlyphImager < Test::Unit::TestCase
       :output_dir => "/tmp"
     })
     @imager.create_image
-    assert File.exists?("/tmp/0021.png")
+    assert File.exists?("/tmp/0021-80x80.png")
   end
   
   should "create new image for character supported by font" do
@@ -48,7 +48,7 @@ class TestGlyphImager < Test::Unit::TestCase
       :font_path => @font_path,
       :output_dir => "/tmp"
     })
-    assert File.exists?("/tmp/0021.png")
+    assert File.exists?("/tmp/0021-80x80.png")
   end
   
   should "not create new image for character not supported by font" do
@@ -57,7 +57,7 @@ class TestGlyphImager < Test::Unit::TestCase
       :font_path => @font_path,
       :output_dir => "/tmp"
     })
-    assert !File.exists?("/tmp/11B14.png")
+    assert !File.exists?("/tmp/11B14-80x80.png")
   end
   
 end
