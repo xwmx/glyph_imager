@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{glyph_imager}
-  s.version = "0.0.8"
+  s.version = "0.0.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["William Melody"]
-  s.date = %q{2010-04-27}
+  s.date = %q{2010-04-29}
   s.description = %q{Generate images of glyphs for a specified character in a specified font}
   s.email = %q{hi@williammelody.com}
   s.extra_rdoc_files = [
@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
      "test/fonts/DejaVuSerif.ttf",
      "test/helper.rb",
      "test/test_glyph_imager.rb",
-     "vendor/graphics_utf",
      "vendor/ttf-ruby-0.1/AUTHORS",
      "vendor/ttf-ruby-0.1/COPYING",
      "vendor/ttf-ruby-0.1/README",
