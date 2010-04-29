@@ -76,8 +76,6 @@ module GlyphImager
   
   class Imager
     
-    @@graphics_utf_path = File.join(File.dirname(__FILE__), '..', 'vendor', 'graphics_utf')
-    
     def initialize(opts = {})
       @options = { :size => "80x80" }.merge(opts)
       %w[code_point font_path output_dir].each do |k|
@@ -93,7 +91,7 @@ module GlyphImager
     
         
     def create_image
-      %x[#{@@graphics_utf_path} -N #{@options[:code_point]} | convert -font #{@options[:font_path]} -size #{@options[:size]} -gravity center label:@- #{output_path}]
+      %x[convert -font #{@options[:font_path]} -size #{@options[:size]} -gravity center label:#{["#{@options[:code_point]}".hex].pack("U*")} #{output_path}]
       return self
     end
     
