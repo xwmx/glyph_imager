@@ -9,11 +9,10 @@ class TestGlyphImager < Test::Unit::TestCase
   end
   
   def teardown
-    if File.exists?("/tmp/0021-80x80.png")
-      File.delete("/tmp/0021-80x80.png")
-    end
-    if File.exists?("/tmp/0027-80x80.png")
-      File.delete("/tmp/0027-80x80.png")
+    %w[0021 0027 005C].each do |code|
+      if File.exists?("/tmp/#{code}-80x80.png")
+        File.delete("/tmp/#{code}-80x80.png")
+      end
     end
   end
   
@@ -60,7 +59,16 @@ class TestGlyphImager < Test::Unit::TestCase
       :font_path => @font_path,
       :output_dir => "/tmp"
     })
-    assert File.exists?("/tmp/0021-80x80.png")
+    assert File.exists?("/tmp/0027-80x80.png")
+  end
+  
+  should "create new image for 005C (reverse solidus aka backslash)" do
+    GlyphImager.image_character_for_font({
+      :code_point => "005C",
+      :font_path => @font_path,
+      :output_dir => "/tmp"
+    })
+    assert File.exists?("/tmp/005C-80x80.png")
   end
   
   should "not create new image for character not supported by font" do

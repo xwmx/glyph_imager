@@ -91,8 +91,11 @@ module GlyphImager
     
     def command_string
       # need to escape apostrophe
-      if @options[:code_point] == "0027"
+      case @options[:code_point]
+      when "0027"
         "convert -font #{@options[:font_path]} -size #{@options[:size]} -gravity center label:\\#{[@options[:code_point].hex].pack("U*")} #{output_path}"
+      when "005C"
+        "convert -font #{@options[:font_path]} -size #{@options[:size]} -gravity center label:'\\#{[@options[:code_point].hex].pack("U*")}' #{output_path}"
       else
         "convert -font #{@options[:font_path]} -size #{@options[:size]} -gravity center label:'#{[@options[:code_point].hex].pack("U*")}' #{output_path}"
       end
