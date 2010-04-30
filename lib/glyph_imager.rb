@@ -89,9 +89,17 @@ module GlyphImager
       "#{@options[:output_dir]}/#{@options[:code_point]}-#{@options[:size]}.png"
     end
     
+    def command_string
+      # need to escape apostrophe
+      if @options[:code_point] == "0027"
+        "convert -font #{@options[:font_path]} -size #{@options[:size]} -gravity center label:\\#{[@options[:code_point].hex].pack("U*")} #{output_path}"
+      else
+        "convert -font #{@options[:font_path]} -size #{@options[:size]} -gravity center label:'#{[@options[:code_point].hex].pack("U*")}' #{output_path}"
+      end
+    end
         
     def create_image
-      %x[convert -font #{@options[:font_path]} -size #{@options[:size]} -gravity center label:#{["#{@options[:code_point]}".hex].pack("U*")} #{output_path}]
+      %x[#{command_string}]
       return self
     end
     

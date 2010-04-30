@@ -12,6 +12,9 @@ class TestGlyphImager < Test::Unit::TestCase
     if File.exists?("/tmp/0021-80x80.png")
       File.delete("/tmp/0021-80x80.png")
     end
+    if File.exists?("/tmp/0027-80x80.png")
+      File.delete("/tmp/0027-80x80.png")
+    end
   end
   
   should "read font" do
@@ -45,6 +48,15 @@ class TestGlyphImager < Test::Unit::TestCase
   should "create new image for character supported by font" do
     GlyphImager.image_character_for_font({
       :code_point => "0021",
+      :font_path => @font_path,
+      :output_dir => "/tmp"
+    })
+    assert File.exists?("/tmp/0021-80x80.png")
+  end
+  
+  should "create new image for 0027 (apostrophe)" do
+    GlyphImager.image_character_for_font({
+      :code_point => "0027",
       :font_path => @font_path,
       :output_dir => "/tmp"
     })
