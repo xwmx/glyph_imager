@@ -64,12 +64,20 @@ module GlyphImager
     
     def get_encoding_table4
       @enc_tbl ||= @font.get_table(:cmap).encoding_tables.find do |t|
-          t.class == TTFFont::TTF::Table::Cmap::EncodingTable4
+        t.class == TTFFont::TTF::Table::Cmap::EncodingTable4
       end
     end
     
     def has_glyph_for_unicode_char?(code_point)
+      return false if control_character_points.include?(code_point) 
       get_encoding_table4.get_glyph_id_for_unicode(code_point.hex) != 0
+    end
+    
+    def control_character_points
+      return @control_character_points if @control_character_points
+      @control_character_points = 0.upto(31).collect {|i| ("%04x" % i).upcase }
+      @control_character_points << "007F"
+      @control_character_points += 128.upto(159).collect { |i| ("%04x" % i).upcase }
     end
     
   end

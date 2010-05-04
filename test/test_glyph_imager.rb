@@ -29,6 +29,11 @@ class TestGlyphImager < Test::Unit::TestCase
   should "return true when glyph exists for character" do
     assert @font.has_glyph_for_unicode_char?("0021")
   end
+    
+  should "return false when glyph is control char" do
+    assert !@font.has_glyph_for_unicode_char?("0000")
+    assert !@font.has_glyph_for_unicode_char?("009F")
+  end
   
   should "return false when glyph doesn't exist for character" do
     assert !@font.has_glyph_for_unicode_char?("11B14")
