@@ -3,8 +3,10 @@ require 'helper'
 class TestGlyphImager < Test::Unit::TestCase
   
   def setup
-    @font_path = File.join(File.dirname(__FILE__), 'fonts', 'DejaVuSerif.ttf')
+    @fonts_dir = File.join(File.dirname(__FILE__), 'fonts')
+    @font_path = File.join(@fonts_dir, 'DejaVuSerif.ttf')
     @font = GlyphImager::FontRecord.new(@font_path)
+    @times = GlyphImager::FontRecord.new(File.join(@fonts_dir, 'other', 'TimesRoman.ttf'))
     @output_dir = "/tmp"
   end
   
@@ -31,8 +33,8 @@ class TestGlyphImager < Test::Unit::TestCase
   end
     
   should "return false when glyph is control char" do
-    assert !@font.has_glyph_for_unicode_char?("0000")
-    assert !@font.has_glyph_for_unicode_char?("009F")
+    assert !@times.has_glyph_for_unicode_char?("0000")
+    assert !@times.has_glyph_for_unicode_char?("009F")
   end
   
   should "return false when glyph doesn't exist for character" do
