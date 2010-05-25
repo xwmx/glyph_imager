@@ -85,7 +85,7 @@ module GlyphImager
   class Imager
     
     def initialize(opts = {})
-      @options = { :size => "80x80", :pointsize_percentage => 100 }.merge(opts)
+      @options = { :size => "80x80", :pointsize_percentage => 100, :gravity => "center" }.merge(opts)
       %w[code_point font_path output_dir].each do |k|
         if @options[k.to_sym].nil?
           raise ArgumentError, "missing value for :#{k}"
@@ -101,18 +101,21 @@ module GlyphImager
       @options[:size].split("x").last.to_i * @options[:pointsize_percentage] / 100.0
     end
     
-    def command_string
-      # need to escape apostrophe
+    def label
       case @options[:code_point]
       when "0027"
-        "convert -font #{@options[:font_path]} -size #{@options[:size]} -gravity center -pointsize #{pointsize} label:\\#{[@options[:code_point].hex].pack("U*")} #{output_path}"
+        "label:\\#{[@options[:code_point].hex].pack("U*")}"
       when "005C"
-        "convert -font #{@options[:font_path]} -size #{@options[:size]} -gravity center -pointsize #{pointsize} label:'\\#{[@options[:code_point].hex].pack("U*")}' #{output_path}"
+        "label:'\\#{[@options[:code_point].hex].pack("U*")}'"
       else
-        "convert -font #{@options[:font_path]} -size #{@options[:size]} -gravity center -pointsize #{pointsize} label:'#{[@options[:code_point].hex].pack("U*")}' #{output_path}"
+        "label:'#{[@options[:code_point].hex].pack("U*")}'"
       end
     end
-        
+    
+    def command_string
+      "convert -font #{@options[:font_path]} -size #{@options[:size]} -gravity #{@options[:gravity]} -pointsize #{pointsize} #{label} #{output_path}"
+    end
+    
     def create_image
       %x[#{command_string}]
       return self
