@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{glyph_imager}
-  s.version = "0.0.14"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["William Melody"]
-  s.date = %q{2010-05-24}
+  s.date = %q{2010-05-27}
   s.description = %q{Generate images of glyphs for a specified character in a specified font}
   s.email = %q{hi@williammelody.com}
   s.extra_rdoc_files = [
@@ -26,42 +26,51 @@ Gem::Specification.new do |s|
      "glyph_imager.gemspec",
      "lib/glyph_imager.rb",
      "test/fonts/DejaVuSerif.ttf",
+     "test/fonts/Musica.ttf",
      "test/helper.rb",
      "test/test_glyph_imager.rb",
-     "vendor/ttf-ruby-0.1/AUTHORS",
-     "vendor/ttf-ruby-0.1/COPYING",
-     "vendor/ttf-ruby-0.1/README",
-     "vendor/ttf-ruby-0.1/TODO",
-     "vendor/ttf-ruby-0.1/VERSION",
-     "vendor/ttf-ruby-0.1/lib/ttf.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/datatypes.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/encodings.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/exceptions.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/font_loader.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/fontchunk.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/cmap.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/cvt.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/fpgm.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/gasp.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/glyf.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/head.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/hhea.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/hmtx.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/kern.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/loca.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/maxp.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/name.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/os2.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/post.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/prep.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/vhea.rb",
-     "vendor/ttf-ruby-0.1/lib/ttf/table/vmtx.rb",
-     "vendor/ttf-ruby-0.1/setup.rb",
-     "vendor/ttf-ruby-0.1/tools/README",
-     "vendor/ttf-ruby-0.1/tools/ttfcairoglyphviewer",
-     "vendor/ttf-ruby-0.1/tools/ttfdump",
-     "vendor/ttf-ruby-0.1/tools/ttfglyph2svg",
-     "vendor/ttf-ruby-0.1/tools/ttfsubset"
+     "vendor/ttfunk/.gitignore",
+     "vendor/ttfunk/data/fonts/DejaVuSans.ttf",
+     "vendor/ttfunk/data/fonts/comicsans.ttf",
+     "vendor/ttfunk/example.rb",
+     "vendor/ttfunk/lib/ttfunk.rb",
+     "vendor/ttfunk/lib/ttfunk/directory.rb",
+     "vendor/ttfunk/lib/ttfunk/encoding/mac_roman.rb",
+     "vendor/ttfunk/lib/ttfunk/encoding/windows_1252.rb",
+     "vendor/ttfunk/lib/ttfunk/reader.rb",
+     "vendor/ttfunk/lib/ttfunk/resource_file.rb",
+     "vendor/ttfunk/lib/ttfunk/subset.rb",
+     "vendor/ttfunk/lib/ttfunk/subset/base.rb",
+     "vendor/ttfunk/lib/ttfunk/subset/mac_roman.rb",
+     "vendor/ttfunk/lib/ttfunk/subset/unicode.rb",
+     "vendor/ttfunk/lib/ttfunk/subset/unicode_8bit.rb",
+     "vendor/ttfunk/lib/ttfunk/subset/windows_1252.rb",
+     "vendor/ttfunk/lib/ttfunk/subset_collection.rb",
+     "vendor/ttfunk/lib/ttfunk/table.rb",
+     "vendor/ttfunk/lib/ttfunk/table/cmap.rb",
+     "vendor/ttfunk/lib/ttfunk/table/cmap/format00.rb",
+     "vendor/ttfunk/lib/ttfunk/table/cmap/format04.rb",
+     "vendor/ttfunk/lib/ttfunk/table/cmap/format12.rb",
+     "vendor/ttfunk/lib/ttfunk/table/cmap/subtable.rb",
+     "vendor/ttfunk/lib/ttfunk/table/glyf.rb",
+     "vendor/ttfunk/lib/ttfunk/table/glyf/compound.rb",
+     "vendor/ttfunk/lib/ttfunk/table/glyf/simple.rb",
+     "vendor/ttfunk/lib/ttfunk/table/head.rb",
+     "vendor/ttfunk/lib/ttfunk/table/hhea.rb",
+     "vendor/ttfunk/lib/ttfunk/table/hmtx.rb",
+     "vendor/ttfunk/lib/ttfunk/table/kern.rb",
+     "vendor/ttfunk/lib/ttfunk/table/kern/format0.rb",
+     "vendor/ttfunk/lib/ttfunk/table/loca.rb",
+     "vendor/ttfunk/lib/ttfunk/table/maxp.rb",
+     "vendor/ttfunk/lib/ttfunk/table/name.rb",
+     "vendor/ttfunk/lib/ttfunk/table/os2.rb",
+     "vendor/ttfunk/lib/ttfunk/table/post.rb",
+     "vendor/ttfunk/lib/ttfunk/table/post/format10.rb",
+     "vendor/ttfunk/lib/ttfunk/table/post/format20.rb",
+     "vendor/ttfunk/lib/ttfunk/table/post/format25.rb",
+     "vendor/ttfunk/lib/ttfunk/table/post/format30.rb",
+     "vendor/ttfunk/lib/ttfunk/table/post/format40.rb",
+     "vendor/ttfunk/lib/ttfunk/table/simple.rb"
   ]
   s.homepage = %q{http://github.com/alphabetum/glyph_imager}
   s.rdoc_options = ["--charset=UTF-8"]
