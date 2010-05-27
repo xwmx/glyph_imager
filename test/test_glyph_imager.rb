@@ -7,6 +7,8 @@ class TestGlyphImager < Test::Unit::TestCase
     @font_path = File.join(@fonts_dir, 'DejaVuSerif.ttf')
     @font = GlyphImager::FontRecord.new(@font_path)
     @times = GlyphImager::FontRecord.new(File.join(@fonts_dir, 'other', 'TimesRoman.ttf'))
+    @musica = GlyphImager::FontRecord.new(File.join(@fonts_dir, 'Musica.ttf'))
+    
     @output_dir = "/tmp"
   end
   
@@ -30,6 +32,10 @@ class TestGlyphImager < Test::Unit::TestCase
   
   should "return true when glyph exists for character" do
     assert @font.has_glyph_for_unicode_char?("0021")
+  end
+  
+  should "return true when glyph exists for high cp" do
+    assert @musica.has_glyph_for_unicode_char?("1D032")
   end
     
   should "return false when glyph is control char" do
