@@ -1,5 +1,5 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'vendor', 'ttf-ruby-0.1', 'lib'))
-require 'ttf'
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'vendor', 'ttfunk', 'lib'))
+require 'ttfunk'
 
 module GlyphImager
   
@@ -22,55 +22,47 @@ module GlyphImager
   class FontRecord
     
     @@metadata_ids = %w[
-      copyright_notice
-      font_family_name
-      font_subfamily_name
-      unique_font_identifier
-      full_font_name
-      version_string
-      postscript_name
+      copyright
+      font_family
+      font_subfamily
+      unique_subfamily
+      font_name
+      version
       trademark
-      manufacturer_name
-      designer_name
+      manufacturer
+      designer
       description
       vendor_url
       designer_url
-      license_description
+      license
       license_url
-      reserved
       preferred_family
       preferred_subfamily
       compatible_full
+      sample_text
     ]
-    
     
     @@metadata_ids.each do |m|
       define_method(m) do
-        name_table.find_record_by_id(@@metadata_ids.index(m)).to_s
+        font.name.send(m).first
       end
     end
     
     def initialize(filename)
-      @font = TTFFont::TTF::FontLoader.new(filename)
+      @font = TTFunk::File.open(filename)
     end
     
     def font
       @font
     end
     
-    def name_table
-      @name_table ||= @font.get_table(:name)
-    end
-    
-    def get_encoding_table4
-      @enc_tbl ||= @font.get_table(:cmap).encoding_tables.find do |t|
-        t.class == TTFFont::TTF::Table::Cmap::EncodingTable4
-      end
-    end
-    
     def has_glyph_for_unicode_char?(code_point)
       return false if control_character_points.include?(code_point) 
-      get_encoding_table4.get_glyph_id_for_unicode(code_point.hex) != 0
+      if format12 = font.cmap.unicode.detect { |t| t.format == 12 }
+        format12[code_point.hex] != 0
+      elsif format4 = font.cmap.unicode.detect { |t| t.format == 4 }
+        format4[code_point.hex] != 0
+      end
     end
     
     def control_character_points
