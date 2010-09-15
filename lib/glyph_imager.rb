@@ -77,7 +77,12 @@ module GlyphImager
   class Imager
     
     def initialize(opts = {})
-      @options = { :size => "80x80", :pointsize_percentage => 100, :gravity => "center" }.merge(opts)
+      @options = { 
+        :size => "80x80", 
+        :pointsize_percentage => 100, 
+        :gravity => "center",  
+        :background => "none"
+      }.merge(opts)
       %w[code_point font_path output_dir].each do |k|
         if @options[k.to_sym].nil?
           raise ArgumentError, "missing value for :#{k}"
@@ -105,7 +110,7 @@ module GlyphImager
     end
     
     def command_string
-      "convert -font #{@options[:font_path]} -size #{@options[:size]} -gravity #{@options[:gravity]} -pointsize #{pointsize} #{label} #{output_path}"
+      "convert -font #{@options[:font_path]} -background #{@options[:background]} -size #{@options[:size]} -gravity #{@options[:gravity]} -pointsize #{pointsize} #{label} #{output_path}"
     end
     
     def create_image

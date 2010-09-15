@@ -10,6 +10,7 @@ class TestGlyphImager < Test::Unit::TestCase
     @musica = GlyphImager::FontRecord.new(File.join(@fonts_dir, 'Musica.ttf'))
     
     @output_dir = "/tmp"
+    
   end
   
   def teardown
@@ -91,6 +92,27 @@ class TestGlyphImager < Test::Unit::TestCase
       :output_dir => "/tmp"
     })
     assert !File.exists?("/tmp/11B14-80x80.png")
+  end
+  
+  should "generate command string with default background" do
+    @imager = GlyphImager::Imager.new({
+      :code_point => "0021",
+      :font_path => @font_path,
+      :output_dir => @output_dir
+    })
+    assert_match "-background none", @imager.command_string
+    
+  end
+  
+  should "generate command string with background from param" do
+    @imager = GlyphImager::Imager.new({
+      :code_point => "0021",
+      :font_path => @font_path,
+      :output_dir => @output_dir,
+      :background => "white"
+    })
+    assert_match "-background white", @imager.command_string
+    
   end
   
 end
