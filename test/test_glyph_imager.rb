@@ -14,9 +14,7 @@ describe GlyphImager do
 
   after do
     %w[0021 0027 005C].each do |code|
-      if File.exist?("/tmp/#{code}-80x80.png")
-        File.delete("/tmp/#{code}-80x80.png")
-      end
+      File.delete("/tmp/#{code}-80x80.png") if File.exist?("/tmp/#{code}-80x80.png")
     end
   end
 

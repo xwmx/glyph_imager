@@ -5,9 +5,7 @@ require 'ttfunk'
 module GlyphImager
   def self.image_character_for_font(options = {})
     %w[code_point font_path output_dir].each do |k|
-      if options[k.to_sym].nil?
-        raise ArgumentError, "missing value for :#{k}"
-      end
+      raise ArgumentError, "missing value for :#{k}" if options[k.to_sym].nil?
     end
 
     font = FontRecord.new(options[:font_path])
@@ -66,9 +64,7 @@ module GlyphImager
     end
 
     def control_character_points
-      if defined? @control_character_points
-        return @control_character_points
-      end
+      return @control_character_points if defined? @control_character_points
 
       @control_character_points = 0.upto(31).collect { |i| ('%04x' % i).upcase }
       @control_character_points << '007F'
@@ -85,9 +81,7 @@ module GlyphImager
         background: 'none'
       }.merge(opts)
       %w[code_point font_path output_dir].each do |k|
-        if @options[k.to_sym].nil?
-          raise ArgumentError, "missing value for :#{k}"
-        end
+        raise ArgumentError, "missing value for :#{k}" if @options[k.to_sym].nil?
       end
     end
 
