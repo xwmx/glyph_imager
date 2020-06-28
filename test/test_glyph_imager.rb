@@ -47,9 +47,9 @@ describe GlyphImager do
 
   it 'should create new image' do
     @imager = GlyphImager::Imager.new({
-      :code_point => '0021',
-      :font_path => @font_path,
-      :output_dir => '/tmp'
+      code_point: '0021',
+      font_path: @font_path,
+      output_dir: '/tmp'
     })
     @imager.create_image
     assert File.exist?('/tmp/0021-80x80.png')
@@ -57,55 +57,55 @@ describe GlyphImager do
 
   it 'should create new image for character supported by font' do
     GlyphImager.image_character_for_font({
-      :code_point => '0021',
-      :font_path => @font_path,
-      :output_dir => '/tmp'
+      code_point: '0021',
+      font_path: @font_path,
+      output_dir: '/tmp'
     })
     assert File.exist?('/tmp/0021-80x80.png')
   end
 
   it 'should create new image for 0027 (apostrophe)' do
     GlyphImager.image_character_for_font({
-      :code_point => '0027',
-      :font_path => @font_path,
-      :output_dir => '/tmp'
+      code_point: '0027',
+      font_path: @font_path,
+      output_dir: '/tmp'
     })
     assert File.exist?('/tmp/0027-80x80.png')
   end
 
   it 'should create new image for 005C (reverse solidus aka backslash)' do
     GlyphImager.image_character_for_font({
-      :code_point => '005C',
-      :font_path => @font_path,
-      :output_dir => '/tmp'
+      code_point: '005C',
+      font_path: @font_path,
+      output_dir: '/tmp'
     })
     assert File.exist?('/tmp/005C-80x80.png')
   end
 
   it 'should not create new image for character not supported by font' do
     GlyphImager.image_character_for_font({
-      :code_point => '11B14',
-      :font_path => @font_path,
-      :output_dir => '/tmp'
+      code_point: '11B14',
+      font_path: @font_path,
+      output_dir: '/tmp'
     })
     assert !File.exist?('/tmp/11B14-80x80.png')
   end
 
   it 'should generate command string with default background' do
     @imager = GlyphImager::Imager.new({
-      :code_point => '0021',
-      :font_path => @font_path,
-      :output_dir => @output_dir
+      code_point: '0021',
+      font_path: @font_path,
+      output_dir: @output_dir
     })
     assert_match '-background none', @imager.command_string
   end
 
   it 'should generate command string with background from param' do
     @imager = GlyphImager::Imager.new({
-      :code_point => '0021',
-      :font_path => @font_path,
-      :output_dir => @output_dir,
-      :background => 'white'
+      code_point: '0021',
+      font_path: @font_path,
+      output_dir: @output_dir,
+      background: 'white'
     })
     assert_match '-background white', @imager.command_string
   end

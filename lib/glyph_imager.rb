@@ -77,10 +77,10 @@ module GlyphImager
   class Imager
     def initialize(opts = {})
       @options = {
-        :size => '80x80',
-        :pointsize_percentage => 100,
-        :gravity => 'center',
-        :background => 'none'
+        size: '80x80',
+        pointsize_percentage: 100,
+        gravity: 'center',
+        background: 'none'
       }.merge(opts)
       %w[code_point font_path output_dir].each do |k|
         if @options[k.to_sym].nil?
