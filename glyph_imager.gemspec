@@ -14,21 +14,21 @@ Gem::Specification.new do |s|
   s.email = %q{hi@williammelody.com}
   s.extra_rdoc_files = [
     'LICENSE',
-     'README.rdoc'
+    'README.rdoc'
   ]
   s.files = [
     '.document',
-     '.gitignore',
-     'LICENSE',
-     'README.rdoc',
-     'Rakefile',
-     'VERSION',
-     'glyph_imager.gemspec',
-     'lib/glyph_imager.rb',
-     'test/fonts/DejaVuSerif.ttf',
-     'test/fonts/Musica.ttf',
-     'test/helper.rb',
-     'test/test_glyph_imager.rb'
+    '.gitignore',
+    'LICENSE',
+    'README.rdoc',
+    'Rakefile',
+    'VERSION',
+    'glyph_imager.gemspec',
+    'lib/glyph_imager.rb',
+    'test/fonts/DejaVuSerif.ttf',
+    'test/fonts/Musica.ttf',
+    'test/helper.rb',
+    'test/test_glyph_imager.rb'
   ]
   s.homepage = %q{http://github.com/alphabetum/glyph_imager}
   s.rdoc_options = ['--charset=UTF-8']
@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Generate images of glyphs for a specified character in a specified font}
   s.test_files = [
     'test/helper.rb',
-     'test/test_glyph_imager.rb'
+    'test/test_glyph_imager.rb'
   ]
 
   if s.respond_to? :specification_version then
