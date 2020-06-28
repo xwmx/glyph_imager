@@ -66,7 +66,10 @@ module GlyphImager
     end
     
     def control_character_points
-      return @control_character_points if @control_character_points
+      if defined? @control_character_points
+        return @control_character_points
+      end
+
       @control_character_points = 0.upto(31).collect {|i| ("%04x" % i).upcase }
       @control_character_points << "007F"
       @control_character_points += 128.upto(159).collect { |i| ("%04x" % i).upcase }
