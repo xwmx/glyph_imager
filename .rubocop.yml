@@ -4,3 +4,7 @@ inherit_from: .rubocop_todo.yml
 # in modern shell programming.
 Style/CommandLiteral:
   EnforcedStyle: percent_x
+
+# Use brackets for symbol array for clarity.
+Style/SymbolArray:
+  EnforcedStyle: brackets

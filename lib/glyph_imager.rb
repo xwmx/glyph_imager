@@ -80,8 +80,9 @@ module GlyphImager
         gravity: 'center',
         background: 'none'
       }.merge(opts)
-      %w[code_point font_path output_dir].each do |k|
-        raise ArgumentError, "missing value for :#{k}" if @options[k.to_sym].nil?
+
+      [:code_point, :font_path, :output_dir].each do |k|
+        raise ArgumentError, "missing value for :#{k}" if @options[k].nil?
       end
     end
 
