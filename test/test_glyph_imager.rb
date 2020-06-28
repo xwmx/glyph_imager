@@ -8,7 +8,7 @@ describe GlyphImager do
     # @times = GlyphImager::FontRecord.new(File.join(@fonts_dir, 'other', 'TimesRoman.ttf'))
     @musica = GlyphImager::FontRecord.new(File.join(@fonts_dir, 'Musica.ttf'))
 
-    @output_dir = "/tmp"
+    @output_dir = '/tmp'
   end
 
   after do
@@ -19,22 +19,22 @@ describe GlyphImager do
     end
   end
 
-  it "should read font" do
+  it 'should read font' do
     assert @font
   end
 
-  it "should return font metadata" do
-    assert_equal "DejaVu Serif", @font.font_name
+  it 'should return font metadata' do
+    assert_equal 'DejaVu Serif', @font.font_name
     assert_equal "Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved.\nDejaVu changes are in public domain\n", @font.copyright
-    assert_equal "DejaVu fonts team", @font.manufacturer
+    assert_equal 'DejaVu fonts team', @font.manufacturer
   end
 
-  it "should return true when glyph exists for character" do
-    assert @font.has_glyph_for_unicode_char?("0021")
+  it 'should return true when glyph exists for character' do
+    assert @font.has_glyph_for_unicode_char?('0021')
   end
 
-  it "should return true when glyph exists for high cp" do
-    assert @musica.has_glyph_for_unicode_char?("1D032")
+  it 'should return true when glyph exists for high cp' do
+    assert @musica.has_glyph_for_unicode_char?('1D032')
   end
 
   # it "should return false when glyph is control char" do
@@ -43,71 +43,71 @@ describe GlyphImager do
   # end
 
   it "should return false when glyph doesn't exist for character" do
-    assert !@font.has_glyph_for_unicode_char?("11B14")
+    assert !@font.has_glyph_for_unicode_char?('11B14')
   end
 
-  it "should create new image" do
+  it 'should create new image' do
     @imager = GlyphImager::Imager.new({
-      :code_point => "0021",
+      :code_point => '0021',
       :font_path => @font_path,
-      :output_dir => "/tmp"
+      :output_dir => '/tmp'
     })
     @imager.create_image
-    assert File.exist?("/tmp/0021-80x80.png")
+    assert File.exist?('/tmp/0021-80x80.png')
   end
 
-  it "should create new image for character supported by font" do
+  it 'should create new image for character supported by font' do
     GlyphImager.image_character_for_font({
-      :code_point => "0021",
+      :code_point => '0021',
       :font_path => @font_path,
-      :output_dir => "/tmp"
+      :output_dir => '/tmp'
     })
-    assert File.exist?("/tmp/0021-80x80.png")
+    assert File.exist?('/tmp/0021-80x80.png')
   end
 
-  it "should create new image for 0027 (apostrophe)" do
+  it 'should create new image for 0027 (apostrophe)' do
     GlyphImager.image_character_for_font({
-      :code_point => "0027",
+      :code_point => '0027',
       :font_path => @font_path,
-      :output_dir => "/tmp"
+      :output_dir => '/tmp'
     })
-    assert File.exist?("/tmp/0027-80x80.png")
+    assert File.exist?('/tmp/0027-80x80.png')
   end
 
-  it "should create new image for 005C (reverse solidus aka backslash)" do
+  it 'should create new image for 005C (reverse solidus aka backslash)' do
     GlyphImager.image_character_for_font({
-      :code_point => "005C",
+      :code_point => '005C',
       :font_path => @font_path,
-      :output_dir => "/tmp"
+      :output_dir => '/tmp'
     })
-    assert File.exist?("/tmp/005C-80x80.png")
+    assert File.exist?('/tmp/005C-80x80.png')
   end
 
-  it "should not create new image for character not supported by font" do
+  it 'should not create new image for character not supported by font' do
     GlyphImager.image_character_for_font({
-      :code_point => "11B14",
+      :code_point => '11B14',
       :font_path => @font_path,
-      :output_dir => "/tmp"
+      :output_dir => '/tmp'
     })
-    assert !File.exist?("/tmp/11B14-80x80.png")
+    assert !File.exist?('/tmp/11B14-80x80.png')
   end
 
-  it "should generate command string with default background" do
+  it 'should generate command string with default background' do
     @imager = GlyphImager::Imager.new({
-      :code_point => "0021",
+      :code_point => '0021',
       :font_path => @font_path,
       :output_dir => @output_dir
     })
-    assert_match "-background none", @imager.command_string
+    assert_match '-background none', @imager.command_string
   end
 
-  it "should generate command string with background from param" do
+  it 'should generate command string with background from param' do
     @imager = GlyphImager::Imager.new({
-      :code_point => "0021",
+      :code_point => '0021',
       :font_path => @font_path,
       :output_dir => @output_dir,
-      :background => "white"
+      :background => 'white'
     })
-    assert_match "-background white", @imager.command_string
+    assert_match '-background white', @imager.command_string
   end
 end
