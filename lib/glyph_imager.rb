@@ -12,9 +12,7 @@ module GlyphImager
 
     return unless font.includes_glyph_for_unicode_char?(options[:code_point])
 
-    imager = GlyphImager::Imager.new(options)
-    imager.create_image
-    return imager
+    GlyphImager::Imager.new(options).create_image
   end
 
   class FontRecord
@@ -66,9 +64,15 @@ module GlyphImager
     def control_character_points
       return @control_character_points if defined? @control_character_points
 
-      @control_character_points = 0.upto(31).collect { |i| ('%04x' % i).upcase }
+      @control_character_points = 0.upto(31).collect do |i|
+        ('%04x' % i).upcase
+      end
+
       @control_character_points << '007F'
-      @control_character_points += 128.upto(159).collect { |i| ('%04x' % i).upcase }
+
+      @control_character_points += 128.upto(159).collect do |i|
+        ('%04x' % i).upcase
+      end
     end
   end
 
@@ -113,7 +117,8 @@ module GlyphImager
           -size #{@options[:size]}              \\
           -gravity #{@options[:gravity]}        \\
           -pointsize #{pointsize}               \\
-          #{label} #{output_path}
+          #{label}                              \\
+          #{output_path}
       HEREDOC
     end
 
