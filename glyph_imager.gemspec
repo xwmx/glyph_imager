@@ -53,4 +53,3 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
   end
 end
-

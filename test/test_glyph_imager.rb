@@ -1,7 +1,6 @@
 require 'helper'
 
 describe GlyphImager do
-
   before do
     @fonts_dir = File.join(File.dirname(__FILE__), 'fonts')
     @font_path = File.join(@fonts_dir, 'DejaVuSerif.ttf')
@@ -100,7 +99,6 @@ describe GlyphImager do
       :output_dir => @output_dir
     })
     assert_match "-background none", @imager.command_string
-
   end
 
   it "should generate command string with background from param" do
@@ -111,6 +109,5 @@ describe GlyphImager do
       :background => "white"
     })
     assert_match "-background white", @imager.command_string
-
   end
 end
