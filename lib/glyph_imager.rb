@@ -18,7 +18,7 @@ module GlyphImager
   end
 
   class FontRecord
-    @@metadata_ids = %w[
+    METADATA_IDS = %w[
       copyright
       font_family
       font_subfamily
@@ -37,9 +37,9 @@ module GlyphImager
       preferred_subfamily
       compatible_full
       sample_text
-    ]
+    ].freeze
 
-    @@metadata_ids.each do |m|
+    METADATA_IDS.each do |m|
       define_method(m) do
         font.name.send(m).first
       end
