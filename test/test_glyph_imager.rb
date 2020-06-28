@@ -5,7 +5,6 @@ describe GlyphImager do
     @fonts_dir = File.join(File.dirname(__FILE__), 'fonts')
     @font_path = File.join(@fonts_dir, 'DejaVuSerif.ttf')
     @font = GlyphImager::FontRecord.new(@font_path)
-    # @times = GlyphImager::FontRecord.new(File.join(@fonts_dir, 'other', 'TimesRoman.ttf'))
     @musica = GlyphImager::FontRecord.new(File.join(@fonts_dir, 'Musica.ttf'))
 
     @output_dir = '/tmp'
@@ -37,10 +36,10 @@ describe GlyphImager do
     assert @musica.has_glyph_for_unicode_char?('1D032')
   end
 
-  # it "should return false when glyph is control char" do
-  #   assert !@times.has_glyph_for_unicode_char?("0000")
-  #   assert !@times.has_glyph_for_unicode_char?("009F")
-  # end
+  it 'should return false when glyph is control char' do
+    assert !@font.has_glyph_for_unicode_char?('0000')
+    assert !@font.has_glyph_for_unicode_char?('009F')
+  end
 
   it "should return false when glyph doesn't exist for character" do
     assert !@font.has_glyph_for_unicode_char?('11B14')
