@@ -4,8 +4,8 @@ require 'ttfunk'
 
 module GlyphImager
   def self.image_character_for_font(options = {})
-    %w[code_point font_path output_dir].each do |k|
-      raise ArgumentError, "missing value for :#{k}" if options[k.to_sym].nil?
+    [:code_point, :font_path, :output_dir].each do |k|
+      raise ArgumentError, "missing value for :#{k}" if @options[k].nil?
     end
 
     font = FontRecord.new(options[:font_path])
