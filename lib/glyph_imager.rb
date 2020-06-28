@@ -106,7 +106,15 @@ module GlyphImager
     end
 
     def command_string
-      "convert -font #{@options[:font_path]} -background #{@options[:background]} -size #{@options[:size]} -gravity #{@options[:gravity]} -pointsize #{pointsize} #{label} #{output_path}"
+      <<-HEREDOC
+        convert                                 \\
+          -font #{@options[:font_path]}         \\
+          -background #{@options[:background]}  \\
+          -size #{@options[:size]}              \\
+          -gravity #{@options[:gravity]}        \\
+          -pointsize #{pointsize}               \\
+          #{label} #{output_path}
+      HEREDOC
     end
 
     def create_image
