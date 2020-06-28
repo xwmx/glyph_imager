@@ -7,12 +7,14 @@ module GlyphImager
         raise ArgumentError, "missing value for :#{k}"
       end
     end
+
     font = FontRecord.new(options[:font_path])
-    if font.has_glyph_for_unicode_char?(options[:code_point])
-      imager = GlyphImager::Imager.new(options)
-      imager.create_image
-      return imager
-    end
+
+    return unless font.has_glyph_for_unicode_char?(options[:code_point])
+
+    imager = GlyphImager::Imager.new(options)
+    imager.create_image
+    return imager
   end
 
   class FontRecord
