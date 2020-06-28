@@ -91,7 +91,10 @@ module GlyphImager
     end
 
     def output_path
-      "#{@options[:output_dir]}/#{@options[:code_point]}-#{@options[:size]}.png"
+      File.join(
+        @options[:output_dir],
+        "#{@options[:code_point]}-#{@options[:size]}.png"
+      )
     end
 
     def pointsize
