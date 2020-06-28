@@ -1,5 +1,8 @@
 inherit_from: .rubocop_todo.yml
 
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
 # Use %x for command literal since backticks are less clear and discouraged
 # in modern shell programming.
 Style/CommandLiteral:
