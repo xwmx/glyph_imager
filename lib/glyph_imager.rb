@@ -101,13 +101,19 @@ module GlyphImager
       @options[:size].split('x').last.to_i * @options[:pointsize_percentage] / 100.0
     end
 
+    # label
+    #
+    # Return a label string formatted for the `convert` command.
     def label
       case @options[:code_point]
       when '0027'
+        # Escape unquoted apostrophe: https://graphemica.com/0027
         "label:\\#{[@options[:code_point].hex].pack('U*')}"
       when '005C'
+        # Escape apostrophe: https://graphemica.com/0027
         "label:'\\#{[@options[:code_point].hex].pack('U*')}'"
       else
+        # Single quote labeli
         "label:'#{[@options[:code_point].hex].pack('U*')}'"
       end
     end
