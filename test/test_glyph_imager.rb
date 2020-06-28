@@ -31,20 +31,20 @@ describe GlyphImager do
   end
 
   it 'should return true when glyph exists for character' do
-    assert @font.has_glyph_for_unicode_char?('0021')
+    assert @font.includes_glyph_for_unicode_char?('0021')
   end
 
   it 'should return true when glyph exists for high cp' do
-    assert @musica.has_glyph_for_unicode_char?('1D032')
+    assert @musica.includes_glyph_for_unicode_char?('1D032')
   end
 
   it 'should return false when glyph is control char' do
-    assert !@font.has_glyph_for_unicode_char?('0000')
-    assert !@font.has_glyph_for_unicode_char?('009F')
+    assert !@font.includes_glyph_for_unicode_char?('0000')
+    assert !@font.includes_glyph_for_unicode_char?('009F')
   end
 
   it "should return false when glyph doesn't exist for character" do
-    assert !@font.has_glyph_for_unicode_char?('11B14')
+    assert !@font.includes_glyph_for_unicode_char?('11B14')
   end
 
   it 'should create new image' do

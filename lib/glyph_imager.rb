@@ -12,7 +12,7 @@ module GlyphImager
 
     font = FontRecord.new(options[:font_path])
 
-    return unless font.has_glyph_for_unicode_char?(options[:code_point])
+    return unless font.includes_glyph_for_unicode_char?(options[:code_point])
 
     imager = GlyphImager::Imager.new(options)
     imager.create_image
@@ -55,7 +55,7 @@ module GlyphImager
       @font
     end
 
-    def has_glyph_for_unicode_char?(code_point)
+    def includes_glyph_for_unicode_char?(code_point)
       return false if control_character_points.include?(code_point)
 
       if format12 = font.cmap.unicode.detect { |t| t.format == 12 }
