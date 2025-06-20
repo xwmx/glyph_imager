@@ -10,7 +10,7 @@ source 'http://rubygems.org'
 # Font Metrics Parser for the Prawn PDF generator
 #
 # https://rubygems.org/gems/ttfunk
-gem 'ttfunk', '~> 1.6', '>= 1.6.2.1'
+gem 'ttfunk'
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
