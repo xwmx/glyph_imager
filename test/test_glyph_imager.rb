@@ -37,12 +37,12 @@ describe GlyphImager do
   end
 
   it 'should return false when glyph is control char' do
-    assert !@font.includes_glyph_for_unicode_char?('0000')
-    assert !@font.includes_glyph_for_unicode_char?('009F')
+    refute @font.includes_glyph_for_unicode_char?('0000')
+    refute @font.includes_glyph_for_unicode_char?('009F')
   end
 
   it "should return false when glyph doesn't exist for character" do
-    assert !@font.includes_glyph_for_unicode_char?('11B14')
+    refute @font.includes_glyph_for_unicode_char?('11B14')
   end
 
   it 'should create new image' do
@@ -88,7 +88,7 @@ describe GlyphImager do
       font_path: @font_path,
       output_dir: '/tmp'
     })
-    assert !File.exist?('/tmp/11B14-80x80.png')
+    refute File.exist?('/tmp/11B14-80x80.png')
   end
 
   it 'should generate command string with default background' do
