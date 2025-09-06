@@ -113,7 +113,7 @@ module GlyphImager
         # Escape apostrophe: https://graphemica.com/0027
         "label:'\\#{[@options[:code_point].hex].pack('U*')}'"
       else
-        # Single quote labeli
+        # Single quote label
         "label:'#{[@options[:code_point].hex].pack('U*')}'"
       end
     end
