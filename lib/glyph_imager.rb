@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 require 'ttfunk'
+require 'open-uri'
+require 'tempfile'
+require 'uri'
 
 module GlyphImager
   def self.image_character_for_font(options = {})
@@ -12,10 +15,14 @@ module GlyphImager
 
     return unless font.includes_glyph_for_unicode_char?(options[:code_point])
 
-    GlyphImager::Imager.new(options).create_image
+    GlyphImager::Imager.new(options.merge(font_path: font.font_path)).create_image
+  ensure
+    font.cleanup if font.respond_to?(:cleanup)
   end
 
   class FontRecord
+    attr_reader :font_path
+
     METADATA_IDS = %w[
       copyright
       font_family
@@ -43,8 +50,26 @@ module GlyphImager
       end
     end
 
-    def initialize(filename)
-      @font = TTFunk::File.open(filename)
+    def initialize(path_or_url)
+      @cleanup_needed = false
+      case
+      when http_url?(path_or_url)
+        @tmpfile = Tempfile.new(['font', File.extname(path_or_url)])
+        @tmpfile.binmode
+        @tmpfile.write URI.open(path_or_url).read
+        @tmpfile.flush
+        @font_path = @tmpfile.path
+        @cleanup_needed = true
+      when file_url?(path_or_url)
+        @font_path = file_url_to_path(path_or_url)
+      else
+        @font_path = path_or_url
+      end
+      @font = TTFunk::File.open(@font_path)
+    end
+
+    def cleanup
+      @tmpfile&.close!
     end
 
     def font
@@ -73,6 +98,22 @@ module GlyphImager
       @control_character_points += 128.upto(159).collect do |i|
         ('%04x' % i).upcase
       end
+    end
+
+    private
+
+    def http_url?(str)
+      str =~ /\Ahttps?:\/\//
+    end
+
+    def file_url?(str)
+      str =~ /\Afile:\/\//
+    end
+
+    def file_url_to_path(file_url)
+      uri = URI.parse(file_url)
+      # Handles both file:///absolute/path and file:/absolute/path
+      uri.path
     end
   end
 
