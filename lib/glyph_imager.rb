@@ -168,7 +168,7 @@ module GlyphImager
           -gravity #{@options[:gravity]}        \\
           -pointsize #{pointsize}               \\
           #{label}                              \\
-          #{output_path}
+          #{output_path} 2>/dev/null
       HEREDOC
     end
 
